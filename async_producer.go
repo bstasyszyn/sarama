@@ -643,7 +643,7 @@ func (pp *partitionProducer) dispatch() {
 			}
 		}
 
-		if msg.retries > pp.highWatermark {
+		if msg.retries > pp.highWatermark && pp.brokerProducer != nil {
 			// a new, higher, retry level; handle it and then back off
 			pp.newHighWatermark(msg.retries)
 			pp.backoff(msg.retries)
